@@ -25,19 +25,26 @@ export default function FilterSort({ transactions, setFilteredTransactions }) {
     if (category === "All") {
       setFilteredTransactions(transactions);
     } else {
-      setFilteredTransactions(transactions.filter((t) => t.category === category));
+      setFilteredTransactions(
+        transactions.filter((t) => t.category === category)
+      );
     }
   };
 
   const handleSort = (order) => {
-    setSortOrder(order);
+    setSortOrder(order); // Store the sort order in state
+
+    // Create a copy of transactions
     let sortedTransactions = [...transactions];
+
+    // Decide sorting logic
     if (order === "lowToHigh") {
-      sortedTransactions.sort((a, b) => a.amount - b.amount);
+      sortedTransactions.sort((a, b) => a.amount - b.amount); // Ascending
     } else if (order === "highToLow") {
-      sortedTransactions.sort((a, b) => b.amount - a.amount);
+      sortedTransactions.sort((a, b) => b.amount - a.amount); // Descending
     }
-    setFilteredTransactions(sortedTransactions);
+
+    setFilteredTransactions(sortedTransactions); // Update the UI 
   };
 
   return (
@@ -50,11 +57,13 @@ export default function FilterSort({ transactions, setFilteredTransactions }) {
           className="border p-2 rounded-md"
         >
           {categories.map((c) => (
-            <option key={c} value={c}>{c}</option>
+            <option key={c} value={c}>
+              {c}
+            </option>
           ))}
         </select>
       </div>
-      
+
       <div>
         <label className="mr-2">Sort by Amount:</label>
         <select
